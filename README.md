@@ -1,5 +1,8 @@
 # react-native-caroussel-pager
 [![npm](https://img.shields.io/npm/v/react-native-caroussel-pager.svg?style=plastic)](https://npmjs.org/package/react-native-caroussel-pager)
+<p>
+    <img src="./react-native-caroussel-pager.gif" width="300">
+</p>
 
 ## Installation
 ```bash
