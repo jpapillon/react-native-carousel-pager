@@ -1,0 +1,4 @@
+#Tue Aug 01 11:16:49 EDT 2017
+base.0=/Users/jpapillon/dev/react-native-scroll-pager/android/app/build/intermediates/transforms/dex/debug/folders/1000/1f/main
+renamed.0=classes.dex
+file.0=/Users/jpapillon/dev/react-native-scroll-pager/android/app/build/intermediates/transforms/dex/debug/folders/1000/1f/main/classes.dex

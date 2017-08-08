@@ -14,7 +14,7 @@ export default class CarousselPager extends Component {
     blurredZoom: PropTypes.number,
     blurredOpacity: PropTypes.number,
     containerPadding: PropTypes.number,
-    pagesSpacing: PropTypes.number,
+    pageSpacing: PropTypes.number,
     pageStyle: PropTypes.object,
 
     children: PropTypes.array.isRequired
