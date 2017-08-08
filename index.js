@@ -1,3 +1,3 @@
-import CarousselPager from './CarousselPager';
+import CarouselPager from './CarouselPager';
 
-export default CarousselPager;
+export default CarouselPager;

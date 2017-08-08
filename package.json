@@ -1,14 +1,14 @@
 {
-  "name": "react-native-caroussel-pager",
+  "name": "react-native-carousel-pager",
   "version": "1.0.2",
-  "description": "React Native caroussel pager.",
+  "description": "React Native carousel pager.",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/jpapillon/react-native-caroussel-pager.git"
+    "url": "git+https://github.com/jpapillon/react-native-carousel-pager.git"
   },
   "keywords": [
     "react",
@@ -16,12 +16,12 @@
     "scroll",
     "view",
     "pager",
-    "caroussel"
+    "carousel"
   ],
   "author": "Jeremie Papillon",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/jpapillon/react-native-caroussel-pager/issues"
+    "url": "https://github.com/jpapillon/react-native-carousel-pager/issues"
   },
-  "homepage": "https://github.com/jpapillon/react-native-caroussel-pager#readme"
+  "homepage": "https://github.com/jpapillon/react-native-carousel-pager#readme"
 }

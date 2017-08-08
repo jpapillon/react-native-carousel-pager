@@ -11,7 +11,7 @@ import {
   View,
   Alert
 } from 'react-native';
-import CarousselPager from 'react-native-caroussel-pager';
+import CarouselPager from 'react-native-carousel-pager';
 
 export default class App extends Component {
   render() {
@@ -39,21 +39,21 @@ export default class App extends Component {
     return (
       <View style={styles.container}>
         <View style={{flex: 1, flexDirection: 'row', backgroundColor: '#000', paddingTop: 10, paddingBottom: 10}}>
-          {<CarousselPager
+          {<CarouselPager
             pageStyle={{
               backgroundColor: '#fff',
               padding: 30,
             }}
-          >{pages}</CarousselPager>}
+          >{pages}</CarouselPager>}
         </View>
         <View style={{flex: 1, flexDirection: 'row', paddingLeft: 10, paddingRight: 10, backgroundColor: '#369'}}>
-          {<CarousselPager
+          {<CarouselPager
             vertical={true}
             pageStyle={{
               backgroundColor: '#fff',
               padding: 30,
             }}
-          >{pages}</CarousselPager>}
+          >{pages}</CarouselPager>}
         </View>
       </View>
     );

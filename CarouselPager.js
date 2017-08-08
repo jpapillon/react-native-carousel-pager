@@ -7,7 +7,7 @@ import {
 } from 'react-native';
 import PropTypes from 'prop-types';
 
-export default class CarousselPager extends Component {
+export default class CarouselPager extends Component {
   static propTypes = {
     initialPage: PropTypes.number,
     vertical: PropTypes.bool,
