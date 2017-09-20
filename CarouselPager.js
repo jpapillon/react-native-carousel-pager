@@ -147,9 +147,7 @@ export default class CarouselPager extends Component {
       },
       onPanResponderTerminate: (evt, gestureState) => {
       },
-      onShouldBlockNativeResponder: (evt, gestureState) => {
-        return true;
-      },
+      onShouldBlockNativeResponder: (evt, gestureState) => false
     });
   }
 
