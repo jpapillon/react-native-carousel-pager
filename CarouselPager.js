@@ -16,6 +16,7 @@ export default class CarouselPager extends Component {
     containerPadding: PropTypes.number,
     pageSpacing: PropTypes.number,
     pageStyle: PropTypes.object,
+    onPageChange: PropTypes.func,
 
     children: PropTypes.array.isRequired
   }
@@ -27,6 +28,7 @@ export default class CarouselPager extends Component {
     containerPadding: 30,
     pageSpacing: 10,
     vertical: false,
+    onPageChange: () => {},
   }
 
   state = {
@@ -144,6 +146,7 @@ export default class CarouselPager extends Component {
 
         this._lastPos = toValue;
         this._currentPage = page;
+        this.props.onPageChange(page);
       },
       onPanResponderTerminate: (evt, gestureState) => {
       },
