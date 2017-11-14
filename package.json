@@ -1,6 +1,6 @@
 {
   "name": "react-native-carousel-pager",
-  "version": "1.0.4",
+  "version": "1.1.0",
   "description": "React Native carousel pager.",
   "main": "index.js",
   "scripts": {
