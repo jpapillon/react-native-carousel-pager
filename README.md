@@ -46,3 +46,4 @@ blurredOpacity | number | 0.8 | Opacity (number between 0 and 1) to apply to blu
 containerPadding | number | 30 | Container padding (used to display part of preceding and following pages)
 pageSpacing | number | 10 | Space between pages
 pageStyle | object | null | Style to apply to each page
+onPageChange | function | (page) => {} | When current page changes, call onPageChange with parameter
