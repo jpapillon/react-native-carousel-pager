@@ -1,6 +1,8 @@
 # react-native-carousel-pager
-[![npm](https://img.shields.io/npm/v/react-native-carousel-pager.svg?style=plastic)](https://npmjs.org/package/react-native-carousel-pager)
-[![npm](https://img.shields.io/npm/dm/react-native-carousel-pager.svg)](https://npmjs.org/package/react-native-carousel-pager)
+[![Version](https://img.shields.io/npm/v/react-native-carousel-pager.svg)](https://www.npmjs.com/package/react-native-carousel-pager)
+[![npm](https://img.shields.io/npm/dm/react-native-carousel-pager.svg)](https://www.npmjs.com/package/react-native-carousel-pager)
+[![license](https://img.shields.io/github/license/mashape/apistatus.svg)]()
+
 <p>
     <img src="./react-native-carousel-pager.gif" width="300">
 </p>
