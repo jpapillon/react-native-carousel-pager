@@ -19,7 +19,7 @@
     "carousel"
   ],
   "author": "Jeremie Papillon",
-  "license": "ISC",
+  "license": "MIT",
   "bugs": {
     "url": "https://github.com/jpapillon/react-native-carousel-pager/issues"
   },
