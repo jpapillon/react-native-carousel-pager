@@ -13,6 +13,7 @@ export default class CarouselPager extends Component {
     vertical: PropTypes.bool,
     blurredZoom: PropTypes.number,
     blurredOpacity: PropTypes.number,
+    animationDuration: PropTypes.number,
     containerPadding: PropTypes.number,
     pageSpacing: PropTypes.number,
     pageStyle: PropTypes.object,
@@ -25,6 +26,7 @@ export default class CarouselPager extends Component {
     initialPage: 0,
     blurredZoom: 0.8,
     blurredOpacity: 0.8,
+    animationDuration: 150,
     containerPadding: 30,
     pageSpacing: 10,
     vertical: false,
@@ -118,22 +120,22 @@ export default class CarouselPager extends Component {
           // New page needs to be shown (adjust opacity and scale)
           Animated.timing(this.state.viewsScale[page], {
             toValue: 1,
-            duration: 150
+            duration: this.props.animationDuration
           }).start();
 
           Animated.timing(this.state.viewsOpacity[page], {
             toValue: 1,
-            duration: 150
+            duration: this.props.animationDuration
           }).start();
 
           Animated.timing(this.state.viewsScale[this._currentPage], {
             toValue: this.props.blurredZoom,
-            duration: 150
+            duration: this.props.animationDuration
           }).start();
 
           Animated.timing(this.state.viewsOpacity[this._currentPage], {
             toValue: this.props.blurredOpacity,
-            duration: 150
+            duration: this.props.animationDuration
           }).start();
         }
 
@@ -141,7 +143,7 @@ export default class CarouselPager extends Component {
         let toValue = this._getPosForPage(page);
         Animated.timing(this.state.pos, {
           toValue: toValue,
-          duration: 150
+          duration: this.props.animationDuration
         }).start();
 
         this._lastPos = toValue;
