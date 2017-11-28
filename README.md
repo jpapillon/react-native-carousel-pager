@@ -46,6 +46,7 @@ initialPage | number | 0 | Initial page to display on render
 vertical | boolean | false | Set to `true` if carousel should be vertical
 blurredZoom | number | 0.8 | Zoom (number between 0 and 1) to apply to blurred pages
 blurredOpacity | number | 0.8 | Opacity (number between 0 and 1) to apply to blurred pages
+animationDuration | number | 150 | Animation duration between page changes
 containerPadding | number | 30 | Container padding (used to display part of preceding and following pages)
 pageSpacing | number | 10 | Space between pages
 pageStyle | object | null | Style to apply to each page
