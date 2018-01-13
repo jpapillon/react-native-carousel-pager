@@ -9,7 +9,8 @@ import {
   StyleSheet,
   Text,
   View,
-  Alert
+  Alert,
+  TouchableOpacity
 } from 'react-native';
 import CarouselPager from 'react-native-carousel-pager';
 
@@ -17,21 +18,41 @@ export default class App extends Component {
   render() {
 
     var i = 0;
-    let pages = [];
+    let horizontalPages = [];
+    let verticalPages = [];
     for (let i = 0; i < 5; i++) {
-      pages.push(
+      horizontalPages.push(
         <View
-        key={'page-' + i}
-        style={{
-          flex: 1,
-          flexDirection: 'row',
-          alignItems: 'center',
-          justifyContent: 'center',
-          padding: 30,
-          backgroundColor: '#fff',
-          borderRadius: 2
-        }}>
-          <Text style={{color: '#666', fontSize: 60, fontWeight: 'bold'}}>{i+1}</Text>
+          key={'page-' + i}
+          style={{
+            flex: 1,
+            flexDirection: 'row',
+            alignItems: 'center',
+            justifyContent: 'center',
+            padding: 30,
+            backgroundColor: '#fff',
+            borderRadius: 2
+          }}>
+          <TouchableOpacity onPress={() => this.horizontalCarousel.scrollTo((i + 1) % 5)}>
+            <Text style={{color: '#666', fontSize: 60, fontWeight: 'bold'}}>{i+1}</Text>
+          </TouchableOpacity>
+        </View>
+      );
+      verticalPages.push(
+        <View
+          key={'page-' + i}
+          style={{
+            flex: 1,
+            flexDirection: 'row',
+            alignItems: 'center',
+            justifyContent: 'center',
+            padding: 30,
+            backgroundColor: '#fff',
+            borderRadius: 2
+          }}>
+          <TouchableOpacity onPress={() => this.verticalCarousel.scrollTo((i + 1) % 5)}>
+            <Text style={{color: '#666', fontSize: 60, fontWeight: 'bold'}}>{i+1}{i+1}</Text>
+          </TouchableOpacity>
         </View>
       );
     }
@@ -40,20 +61,22 @@ export default class App extends Component {
       <View style={styles.container}>
         <View style={{flex: 1, flexDirection: 'row', backgroundColor: '#000', paddingTop: 10, paddingBottom: 10}}>
           {<CarouselPager
+            ref={ref => this.horizontalCarousel = ref}
             pageStyle={{
               backgroundColor: '#fff',
               padding: 30,
             }}
-          >{pages}</CarouselPager>}
+          >{horizontalPages}</CarouselPager>}
         </View>
         <View style={{flex: 1, flexDirection: 'row', paddingLeft: 10, paddingRight: 10, backgroundColor: '#369'}}>
           {<CarouselPager
+            ref={ref => this.verticalCarousel = ref}
             vertical={true}
             pageStyle={{
               backgroundColor: '#fff',
               padding: 30,
             }}
-          >{pages}</CarouselPager>}
+          >{verticalPages}</CarouselPager>}
         </View>
       </View>
     );

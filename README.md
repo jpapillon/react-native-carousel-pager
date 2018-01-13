@@ -23,10 +23,14 @@ import React, {Component} from 'react';
 import CarouselPager from 'react-native-carousel-pager';
 
 export default class Pager extends Component {
+  onClickSomething() {
+    this.carousel.goToPage(2);
+  }
+
   render() {
     return (
       <View style={{flex: 1}}>
-        <CarouselPager initialPage={2} pageStyle={{backgroundColor: '#fff'}}>
+        <CarouselPager ref={ref => this.carousel = ref} initialPage={2} pageStyle={{backgroundColor: '#fff'}}>
           <View key={'page0'}></View>
           <View key={'page1'}></View>
           <View key={'page2'}></View>
@@ -51,3 +55,9 @@ containerPadding | number | 30 | Container padding (used to display part of prec
 pageSpacing | number | 10 | Space between pages
 pageStyle | object | null | Style to apply to each page
 onPageChange | function | (page) => {} | When current page changes, call onPageChange with parameter
+
+## Methods
+
+Name | propType | description
+--- | --- | --- | ---
+goToPage | number | Scrolls to the given page

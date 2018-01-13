@@ -97,6 +97,65 @@ export default class CarouselPager extends Component {
     });
   }
 
+  animateToPage(page) {
+    let animations = [];
+    if (this._currentPage !== page) {
+      // New page needs to be shown (adjust opacity and scale)
+      animations.push(
+        Animated.timing(this.state.viewsScale[page], {
+          toValue: 1,
+          duration: this.props.animationDuration
+        })
+      );
+
+      animations.push(
+        Animated.timing(this.state.viewsOpacity[page], {
+          toValue: 1,
+          duration: this.props.animationDuration
+        })
+      );
+
+      animations.push(
+        Animated.timing(this.state.viewsScale[this._currentPage], {
+          toValue: this.props.blurredZoom,
+          duration: this.props.animationDuration
+        })
+      );
+
+      animations.push(
+        Animated.timing(this.state.viewsOpacity[this._currentPage], {
+          toValue: this.props.blurredOpacity,
+          duration: this.props.animationDuration
+        })
+      );
+    }
+
+    // Move to proper position for selected page
+    let toValue = this._getPosForPage(page);
+
+    animations.push(
+      Animated.timing(this.state.pos, {
+        toValue: toValue,
+        duration: this.props.animationDuration
+      })
+    );
+
+    Animated.parallel(animations).start();
+
+    this._lastPos = toValue;
+    this._currentPage = page;
+    this.props.onPageChange(page);
+  }
+
+  goToPage(index) {
+    if (index < 0 || index > this.props.children.length - 1) {
+      // Out of bounds, don't go anywhere
+      return;
+    }
+
+    this.animateToPage(index);
+  }
+
   componentWillMount() {
     this._panResponder = PanResponder.create({
       onStartShouldSetPanResponder: (evt, gestureState) => true,
@@ -115,40 +174,7 @@ export default class CarouselPager extends Component {
         let suffix = this.props.vertical ? 'y' : 'x';
         this._lastPos += gestureState['d' + suffix];
         let page = this._getPageForOffset(this._lastPos, gestureState['d' + suffix]);
-
-        if (this._currentPage !== page) {
-          // New page needs to be shown (adjust opacity and scale)
-          Animated.timing(this.state.viewsScale[page], {
-            toValue: 1,
-            duration: this.props.animationDuration
-          }).start();
-
-          Animated.timing(this.state.viewsOpacity[page], {
-            toValue: 1,
-            duration: this.props.animationDuration
-          }).start();
-
-          Animated.timing(this.state.viewsScale[this._currentPage], {
-            toValue: this.props.blurredZoom,
-            duration: this.props.animationDuration
-          }).start();
-
-          Animated.timing(this.state.viewsOpacity[this._currentPage], {
-            toValue: this.props.blurredOpacity,
-            duration: this.props.animationDuration
-          }).start();
-        }
-
-        // Move to proper position for selected page
-        let toValue = this._getPosForPage(page);
-        Animated.timing(this.state.pos, {
-          toValue: toValue,
-          duration: this.props.animationDuration
-        }).start();
-
-        this._lastPos = toValue;
-        this._currentPage = page;
-        this.props.onPageChange(page);
+        this.animateToPage(page);
       },
       onPanResponderTerminate: (evt, gestureState) => {
       },
