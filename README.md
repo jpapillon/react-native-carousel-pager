@@ -59,5 +59,5 @@ onPageChange | function | (page) => {} | When current page changes, call onPageC
 ## Methods
 
 Name | propType | description
---- | --- | --- | ---
+--- | --- | ---
 goToPage | number | Scrolls to the given page
