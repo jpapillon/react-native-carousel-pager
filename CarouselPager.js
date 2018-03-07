@@ -244,7 +244,7 @@ export default class CarouselPager extends Component {
                         scaleY: this.state.viewsScale[index]
                       }
                   ]
-                }, boxStyle]}>
+                }, boxStyle, this.props.pageStyle]}>
                 {page}
               </Animated.View>
             );
