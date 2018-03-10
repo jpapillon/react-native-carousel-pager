@@ -3372,9 +3372,9 @@ react-devtools-core@2.3.1:
     shell-quote "^1.6.1"
     ws "^2.0.3"
 
-react-native-carousel-pager@^1.0.0:
-  version "1.2.0"
-  resolved "https://registry.yarnpkg.com/react-native-carousel-pager/-/react-native-carousel-pager-1.2.0.tgz#e7ab1891ceb23103a5e94260dfcf291f62f93a64"
+react-native-carousel-pager@^1.4.0:
+  version "1.4.0"
+  resolved "https://registry.yarnpkg.com/react-native-carousel-pager/-/react-native-carousel-pager-1.4.0.tgz#c0f37bdb69f606113f0d65920ec644cbdc346dbc"
 
 react-native@0.46.4:
   version "0.46.4"

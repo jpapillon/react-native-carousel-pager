@@ -1,1 +1,6 @@
 .DS_Store
+
+Example/android/build
+Example/android/app/build
+Example/ios/build
+Example/node_modules
