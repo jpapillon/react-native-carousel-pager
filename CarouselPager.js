@@ -95,7 +95,7 @@ export default class CarouselPager extends Component {
 
     let viewsScale = [];
     let viewsOpacity = [];
-    for (let i = 0; i < this.props.children.length; ++i) {
+    for (let i = 0; i < this._getFlattenedChildren().length; ++i) {
       viewsScale.push(new Animated.Value(i === this._currentPage ? 1 : this.props.blurredZoom));
       viewsOpacity.push(new Animated.Value(i === this._currentPage ? 1 : this.props.blurredOpacity));
     }
