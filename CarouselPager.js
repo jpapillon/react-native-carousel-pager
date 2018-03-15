@@ -6,7 +6,6 @@ import {
   StyleSheet
 } from 'react-native';
 import PropTypes from 'prop-types';
-import utils from './utils';
 
 export default class CarouselPager extends Component {
   static propTypes = {
@@ -42,11 +41,7 @@ export default class CarouselPager extends Component {
   _getFlattenedChildren(){
     // after react 15, children could be 2-dimension nested array
     // like [ [awesome-com1 awesome-comp2]  [awesome-com3 awesome-comp4] false]
-    const children = this.props.children;
-    // need filter value like `false`, react does not render it as raw children
-    // but will not work as we expected as we will map it to a Animated.View
-    return utils.flatten(children)
-            .filter(it => it); 
+    return React.Children.toArray(this.props.children); 
   }
 
   _getPosForPage(pageNb) {
