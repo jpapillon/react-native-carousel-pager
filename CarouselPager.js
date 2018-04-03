@@ -143,8 +143,10 @@ export default class CarouselPager extends Component {
     Animated.parallel(animations).start();
 
     this._lastPos = toValue;
-    this._currentPage = page;
-    this.props.onPageChange(page);
+    if (this._currentPage !== page) {
+      this._currentPage = page;
+      this.props.onPageChange(page);
+    }
   }
 
   goToPage(index) {
