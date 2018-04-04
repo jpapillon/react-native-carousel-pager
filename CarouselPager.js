@@ -232,10 +232,12 @@ export default class CarouselPager extends Component {
 
     return (
       <View style={{ flex: 1, flexDirection: this.props.vertical ? 'column' : 'row', overflow: 'hidden' }}>
+        {this.props.children.length === undefined?(this.props.children):(
         <Animated.View
           style={[{ flex: 1 }, containerStyle]}
           {...this._panResponder.panHandlers}
         >
+
           {this.props.children.map((page, index) => {
             return (
               <Animated.View
@@ -254,7 +256,7 @@ export default class CarouselPager extends Component {
               </Animated.View>
             );
           })}
-        </Animated.View>
+        </Animated.View>)}
       </View>
     );
   }
