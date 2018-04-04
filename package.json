@@ -1,5 +1,5 @@
 {
-  "name": "react-native-carousel-page-edxer",
+  "name": "react-native-carousel-page",
   "version": "1.4.2",
   "description": "React Native carousel pager.",
   "main": "index.js",
@@ -8,7 +8,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/edxe/react-native-carousel-pager.git"
+    "url": "git+https://github.com/jpapillon/react-native-carousel-pager.git"
   },
   "keywords": [
     "react",
