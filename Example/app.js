@@ -33,7 +33,7 @@ export default class App extends Component {
               padding: 30,
               borderRadius: 2
             }}>
-            <TouchableOpacity onPress={() => this.horizontalCarousel.goToPage((i + 1) % 5)} style={{height: 500}}>
+            <TouchableOpacity onPress={() => this.horizontalCarousel.goToPage((i + 1) % 5)}>
               <Text style={{color: '#666', fontSize: 60, fontWeight: 'bold'}}>{i+1}</Text>
             </TouchableOpacity>
           </View>
@@ -50,7 +50,7 @@ export default class App extends Component {
               padding: 30,
               borderRadius: 2
             }}>
-            <TouchableOpacity onPress={() => this.verticalCarousel.goToPage((i + 1) % 5)} style={{width: 500}}>
+            <TouchableOpacity onPress={() => this.verticalCarousel.goToPage((i + 1) % 5)}>
               <Text style={{color: '#666', fontSize: 60, fontWeight: 'bold'}}>{i+1}{i+1}</Text>
             </TouchableOpacity>
           </View>
@@ -63,6 +63,7 @@ export default class App extends Component {
         <View style={{flex: 1, flexDirection: 'row', backgroundColor: '#000', paddingTop: 10, paddingBottom: 10}}>
           {<CarouselPager
             ref={ref => this.horizontalCarousel = ref}
+            deltaDelay={10}
             pageStyle={{
               backgroundColor: '#fff',
               padding: 30,
@@ -73,6 +74,7 @@ export default class App extends Component {
           {<CarouselPager
             ref={ref => this.verticalCarousel = ref}
             vertical={true}
+            deltaDelay={10}
             pageStyle={{
               backgroundColor: '#fff',
               padding: 30,

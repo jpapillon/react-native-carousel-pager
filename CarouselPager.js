@@ -18,7 +18,7 @@ export default class CarouselPager extends Component {
     pageSpacing: PropTypes.number,
     pageStyle: PropTypes.object,
     onPageChange: PropTypes.func,
-
+    deltaDelay: PropTypes.number,
     children: PropTypes.array.isRequired
   }
 
@@ -30,6 +30,7 @@ export default class CarouselPager extends Component {
     containerPadding: 30,
     pageSpacing: 10,
     vertical: false,
+    deltaDelay: 0,
     onPageChange: () => {},
   }
 
@@ -158,13 +159,17 @@ export default class CarouselPager extends Component {
 
   componentWillMount() {
     this._panResponder = PanResponder.create({
-      onStartShouldSetPanResponder: (evt, gestureState) => true,
+      onStartShouldSetPanResponder: (evt, gestureState) => {
+        const dx = Math.abs(gestureState.dx);
+        const dy = Math.abs(gestureState.dy);
+        return this.props.vertical ? (dy > this.props.deltaDelay && dy > dx) : (dx > this.props.deltaDelay && dx > dy);
+      },
       onStartShouldSetPanResponderCapture: (evt, gestureState) => false,
       onMoveShouldSetPanResponder: (evt, gestureState) => {
         // Set PanResponder only if it is a gesture in the right direction
         const dx = Math.abs(gestureState.dx);
         const dy = Math.abs(gestureState.dy);
-        return this.props.vertical ? (dy > dx) : (dx > dy);
+        return this.props.vertical ? (dy > this.props.deltaDelay && dy > dx) : (dx > this.props.deltaDelay && dx > dy);
       },
       onMoveShouldSetPanResponderCapture: (evt, gestureState) => false,
 
