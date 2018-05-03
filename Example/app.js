@@ -68,7 +68,22 @@ export default class App extends Component {
               backgroundColor: '#fff',
               padding: 30,
             }}
-          >{horizontalPages}</CarouselPager>}
+          >
+          {horizontalPages}
+          
+          <View
+            key={111}
+            style={{
+              flex: 1,
+              flexDirection: 'row',
+              alignItems: 'center',
+              justifyContent: 'center',
+              padding: 30,
+              borderRadius: 2,
+            }}>
+            <Text style={{color: '#666', fontSize: 60, fontWeight: 'bold'}}>Some Other Components</Text>
+          </View>
+        </CarouselPager>}
         </View>
         <View style={{flex: 1, flexDirection: 'row', paddingLeft: 10, paddingRight: 10, backgroundColor: '#369'}}>
           {<CarouselPager

@@ -38,6 +38,12 @@ export default class CarouselPager extends Component {
     width: 0,
     height: 0
   }
+  
+  _getFlattenedChildren(){
+    // after react 15, children could be 2-dimension nested array
+    // like [ [awesome-com1 awesome-comp2]  [awesome-com3 awesome-comp4] false]
+    return React.Children.toArray(this.props.children); 
+  }
 
   _getPosForPage(pageNb) {
     return -pageNb * this._boxSizeInterval;
@@ -56,10 +62,11 @@ export default class CarouselPager extends Component {
     }
 
     // Make sure index is within bounds
+    const children = this._getFlattenedChildren();
     if (index < 0) {
       index = 0;
-    } else if (index > this.props.children.length - 1) {
-      index = this.props.children.length - 1;
+    } else if (index > children.length - 1) {
+      index = children.length - 1;
     }
 
     return index;
@@ -84,7 +91,7 @@ export default class CarouselPager extends Component {
 
     let viewsScale = [];
     let viewsOpacity = [];
-    for (let i = 0; i < this.props.children.length; ++i) {
+    for (let i = 0; i < this._getFlattenedChildren().length; ++i) {
       viewsScale.push(new Animated.Value(i === this._currentPage ? 1 : this.props.blurredZoom));
       viewsOpacity.push(new Animated.Value(i === this._currentPage ? 1 : this.props.blurredOpacity));
     }
@@ -234,14 +241,15 @@ export default class CarouselPager extends Component {
         marginRight: this.props.pageSpacing
       };
     }
-
+    
+    const children = this._getFlattenedChildren();
     return (
       <View style={{ flex: 1, flexDirection: this.props.vertical ? 'column' : 'row', overflow: 'hidden' }}>
         <Animated.View
           style={[{ flex: 1 }, containerStyle]}
           {...this._panResponder.panHandlers}
         >
-          {this.props.children.map((page, index) => {
+          {children.map((page, index) => {
             return (
               <Animated.View
                 key={index}
