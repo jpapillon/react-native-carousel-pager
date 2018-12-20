@@ -55,7 +55,7 @@ containerPadding | number | 30 | Container padding (used to display part of prec
 pageSpacing | number | 10 | Space between pages
 pageStyle | object | null | Style to apply to each page
 onPageChange | function | (page) => {} | When current page changes, call onPageChange with parameter
-
+scrollThreshold | number | 0 | Minimum differential (dx/dy) needed to do scrolling.
 ## Methods
 
 Name | propType | description
