@@ -19,7 +19,8 @@ export default class CarouselPager extends Component {
     pageStyle: PropTypes.object,
     onPageChange: PropTypes.func,
     deltaDelay: PropTypes.number,
-    children: PropTypes.array.isRequired
+    children: PropTypes.array.isRequired,
+    scrollSensitive: PropTypes.number
   }
 
   static defaultProps = {
@@ -31,6 +32,7 @@ export default class CarouselPager extends Component {
     pageSpacing: 10,
     vertical: false,
     deltaDelay: 0,
+    scrollSensitive: 0,
     onPageChange: () => {},
   }
 
@@ -182,9 +184,13 @@ export default class CarouselPager extends Component {
       onPanResponderTerminationRequest: (evt, gestureState) => true,
       onPanResponderRelease: (evt, gestureState) => {
         let suffix = this.props.vertical ? 'y' : 'x';
-        this._lastPos += gestureState['d' + suffix];
-        let page = this._getPageForOffset(this._lastPos, gestureState['d' + suffix]);
-        this.animateToPage(page);
+        const diff = gestureState['d' + suffix]
+        this._lastPos += diff;
+
+        if (Math.abs(diff) > this.props.scrollSensitive) {
+          let page = this._getPageForOffset(this._lastPos, diff);
+          this.animateToPage(page);
+        }
       },
       onPanResponderTerminate: (evt, gestureState) => {
       },
