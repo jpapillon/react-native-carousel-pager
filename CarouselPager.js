@@ -20,7 +20,7 @@ export default class CarouselPager extends Component {
     onPageChange: PropTypes.func,
     deltaDelay: PropTypes.number,
     children: PropTypes.array.isRequired,
-    scrollSensitive: PropTypes.number
+    scrollThreshold: PropTypes.number
   }
 
   static defaultProps = {
@@ -32,7 +32,7 @@ export default class CarouselPager extends Component {
     pageSpacing: 10,
     vertical: false,
     deltaDelay: 0,
-    scrollSensitive: 0,
+    scrollThreshold: 0,
     onPageChange: () => {},
   }
 
@@ -187,7 +187,7 @@ export default class CarouselPager extends Component {
         const diff = gestureState['d' + suffix]
         this._lastPos += diff;
 
-        if (Math.abs(diff) > this.props.scrollSensitive) {
+        if (Math.abs(diff) > this.props.scrollThreshold) {
           let page = this._getPageForOffset(this._lastPos, diff);
           this.animateToPage(page);
         }
