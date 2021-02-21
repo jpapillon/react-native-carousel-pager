@@ -105,28 +105,32 @@ export default class CarouselPager extends Component {
       animations.push(
         Animated.timing(this.state.viewsScale[page], {
           toValue: 1,
-          duration: this.props.animationDuration
+          duration: this.props.animationDuration,
+          useNativeDriver: true
         })
       );
 
       animations.push(
         Animated.timing(this.state.viewsOpacity[page], {
           toValue: 1,
-          duration: this.props.animationDuration
+          duration: this.props.animationDuration,
+          useNativeDriver: true
         })
       );
 
       animations.push(
         Animated.timing(this.state.viewsScale[this._currentPage], {
           toValue: this.props.blurredZoom,
-          duration: this.props.animationDuration
+          duration: this.props.animationDuration,
+          useNativeDriver: true
         })
       );
 
       animations.push(
         Animated.timing(this.state.viewsOpacity[this._currentPage], {
           toValue: this.props.blurredOpacity,
-          duration: this.props.animationDuration
+          duration: this.props.animationDuration,
+          useNativeDriver: true
         })
       );
     }
@@ -137,7 +141,8 @@ export default class CarouselPager extends Component {
     animations.push(
       Animated.timing(this.state.pos, {
         toValue: toValue,
-        duration: this.props.animationDuration
+        duration: this.props.animationDuration,
+        useNativeDriver: true
       })
     );
 
@@ -213,7 +218,7 @@ export default class CarouselPager extends Component {
     let boxStyle = {};
     if (this.props.vertical) {
       containerStyle = {
-        top: this.state.pos,
+        transform: [{ translateY: this.state.pos }],
         paddingTop: this.props.containerPadding,
         paddingBottom: this.props.containerPadding,
         flexDirection: 'column'
@@ -224,7 +229,7 @@ export default class CarouselPager extends Component {
       }
     } else {
       containerStyle = {
-        left: this.state.pos,
+        transform: [{ translateX: this.state.pos }],
         paddingLeft: this.props.containerPadding,
         paddingRight: this.props.containerPadding,
         flexDirection: 'row'
