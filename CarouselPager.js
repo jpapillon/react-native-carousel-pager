@@ -7,6 +7,8 @@ import {
 } from 'react-native';
 import PropTypes from 'prop-types';
 
+const NOOP = () => {};
+
 export default class CarouselPager extends Component {
   static propTypes = {
     initialPage: PropTypes.number,
@@ -19,7 +21,10 @@ export default class CarouselPager extends Component {
     pageStyle: PropTypes.object,
     onPageChange: PropTypes.func,
     deltaDelay: PropTypes.number,
-    children: PropTypes.array.isRequired
+    children: PropTypes.array.isRequired,
+    onPanResponderGrant: PropTypes.func,
+    onPanResponderRelease: PropTypes.func,
+    onPanResponderTerminate: PropTypes.func,
   }
 
   static defaultProps = {
@@ -31,7 +36,10 @@ export default class CarouselPager extends Component {
     pageSpacing: 10,
     vertical: false,
     deltaDelay: 0,
-    onPageChange: () => {},
+    onPageChange: NOOP,
+    onPanResponderGrant: NOOP,
+    onPanResponderRelease: NOOP,
+    onPanResponderTerminate: NOOP,
   }
 
   state = {
@@ -174,6 +182,7 @@ export default class CarouselPager extends Component {
       onMoveShouldSetPanResponderCapture: (evt, gestureState) => false,
 
       onPanResponderGrant: (evt, gestureState) => {
+        this.props.onPanResponderGrant();
       },
       onPanResponderMove: (evt, gestureState) => {
         let suffix = this.props.vertical ? 'y' : 'x';
@@ -185,8 +194,10 @@ export default class CarouselPager extends Component {
         this._lastPos += gestureState['d' + suffix];
         let page = this._getPageForOffset(this._lastPos, gestureState['d' + suffix]);
         this.animateToPage(page);
+        this.props.onPanResponderRelease();
       },
       onPanResponderTerminate: (evt, gestureState) => {
+        this.props.onPanResponderTerminate();
       },
       onShouldBlockNativeResponder: (evt, gestureState) => true
     });
