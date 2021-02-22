@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 import {
   View,
   PanResponder,
@@ -7,7 +7,31 @@ import {
 } from 'react-native';
 import PropTypes from 'prop-types';
 
-export default class CarouselPager extends Component {
+const styles = StyleSheet.create({
+  flex1: {
+    flex: 1,
+  },
+  loadingContainer: {
+    position: 'absolute',
+    top: 0,
+    left: 0,
+    right: 0,
+    bottom: 0,
+    backgroundColor: 'transparent' 
+  },
+  containerVertical: {
+    flex: 1,
+    flexDirection: 'column',
+    overflow: 'hidden'
+  },
+  containerHorizontal: {
+    flex: 1,
+    flexDirection: 'row',
+    overflow: 'hidden'
+  }
+})
+
+export default class CarouselPager extends PureComponent {
   static propTypes = {
     initialPage: PropTypes.number,
     vertical: PropTypes.bool,
@@ -45,21 +69,15 @@ export default class CarouselPager extends Component {
 
   _getPageForOffset(offset, diff) {
     let boxPos = Math.abs(offset / this._boxSizeInterval);
-    let index;
-
-    if (diff < 0) {
-      // Scrolling forwards
-      index = Math.ceil(boxPos);
-    } else {
-      // Scrolling backwards
-      index = Math.floor(boxPos);
-    }
+    let index = diff < 0
+      ? Math.ceil(boxPos) // Scrolling forwards
+      : Math.floor(boxPos) // Scrolling backwards
 
     // Make sure index is within bounds
     if (index < 0) {
-      index = 0;
+      return 0;
     } else if (index > this.props.children.length - 1) {
-      index = this.props.children.length - 1;
+      return this.props.children.length - 1;
     }
 
     return index;
@@ -70,23 +88,24 @@ export default class CarouselPager extends Component {
     let length = this.props.vertical ? height : width;
     this._boxSize = length - (2 * this.props.containerPadding);
     this._boxSizeInterval = this._boxSize + this.props.pageSpacing;
+    const childrenLength = this.props.children.length;
 
     // Get initial page
     let initialPage = this.props.initialPage || 0;
     if (initialPage < 0) {
       initialPage = 0;
-    } else if (initialPage >= this.props.children.length) {
-      initialPage = this.props.children.length - 1;
+    } else if (initialPage >= childrenLength) {
+      initialPage = childrenLength - 1;
     }
 
     this._currentPage = initialPage;
     this._lastPos = this._getPosForPage(this._currentPage);
 
-    let viewsScale = [];
-    let viewsOpacity = [];
-    for (let i = 0; i < this.props.children.length; ++i) {
-      viewsScale.push(new Animated.Value(i === this._currentPage ? 1 : this.props.blurredZoom));
-      viewsOpacity.push(new Animated.Value(i === this._currentPage ? 1 : this.props.blurredOpacity));
+    let viewsScale = new Array(childrenLength);
+    let viewsOpacity = new Array(childrenLength);
+    for (let i = 0; i < childrenLength; ++i) {
+      viewsScale[i] = new Animated.Value(i === this._currentPage ? 1 : this.props.blurredZoom);
+      viewsOpacity[i] = new Animated.Value(i === this._currentPage ? 1 : this.props.blurredOpacity);
     }
 
     this.setState({
@@ -192,25 +211,45 @@ export default class CarouselPager extends Component {
     });
   }
 
+  handleOnLayout = (evt) => {
+    this._runAfterMeasurements(
+      evt.nativeEvent.layout.width,
+      evt.nativeEvent.layout.height
+    );
+  }
+
+  mapChildren = (boxStyle, page, index) => (
+    <Animated.View
+      key={index}
+      style={[{
+        opacity: this.state.viewsOpacity[index],
+        transform: [
+          this.props.vertical ? {
+            scaleX: this.state.viewsScale[index]
+          } : {
+              scaleY: this.state.viewsScale[index]
+            }
+        ]
+      }, boxStyle, this.props.pageStyle]}>
+      {page}
+    </Animated.View>
+  )
+
   render() {
     if (!this.state.width && !this.state.height) {
       // Use a transparent screen to render so we can calculate width & height
       return (
-        <View style={{ flex: 1 }}>
+        <View style={styles.flex1}>
           <View
-            style={{ position: 'absolute', top: 0, left: 0, right: 0, bottom: 0, backgroundColor: 'transparent' }}
-            onLayout={evt => {
-              let width = evt.nativeEvent.layout.width;
-              let height = evt.nativeEvent.layout.height;
-              this._runAfterMeasurements(width, height);
-            }}
+            style={styles.loadingContainer}
+            onLayout={this.handleOnLayout}
           />
         </View>
       );
     }
 
-    let containerStyle = {};
-    let boxStyle = {};
+    let containerStyle;
+    let boxStyle;
     if (this.props.vertical) {
       containerStyle = {
         top: this.state.pos,
@@ -236,29 +275,18 @@ export default class CarouselPager extends Component {
     }
 
     return (
-      <View style={{ flex: 1, flexDirection: this.props.vertical ? 'column' : 'row', overflow: 'hidden' }}>
+      <View
+        style={
+          this.props.vertical
+            ? styles.containerVertical
+            : styles.containerHorizontal
+        }
+      >
         <Animated.View
-          style={[{ flex: 1 }, containerStyle]}
+          style={[styles.flex1, containerStyle]}
           {...this._panResponder.panHandlers}
         >
-          {this.props.children.map((page, index) => {
-            return (
-              <Animated.View
-                key={index}
-                style={[{
-                  opacity: this.state.viewsOpacity[index],
-                  transform: [
-                    this.props.vertical ? {
-                      scaleX: this.state.viewsScale[index]
-                    } : {
-                        scaleY: this.state.viewsScale[index]
-                      }
-                  ]
-                }, boxStyle, this.props.pageStyle]}>
-                {page}
-              </Animated.View>
-            );
-          })}
+          {this.props.children.map(this.mapChildren.bind(this, boxStyle))}
         </Animated.View>
       </View>
     );
